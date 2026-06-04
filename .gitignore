@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Editor and IDE files
+.idea/
+.vscode/
+*.iml
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# Environment files
+.env
+.env.*
+
+# Build outputs
+build/
+dist/
+out/

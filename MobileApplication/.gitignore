@@ -1,0 +1,25 @@
+# 文件作用：定义 Flutter/Dart 移动端工程中不应提交的本地缓存、构建产物和敏感文件。
+
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+coverage/
+
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+android/local.properties
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+
+pubspec.lock

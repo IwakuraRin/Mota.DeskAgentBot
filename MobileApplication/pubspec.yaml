@@ -1,0 +1,21 @@
+# 文件作用：声明 Milo-AI Flutter 项目的名称、版本、依赖和 Flutter 配置。
+
+name: milo_ai
+description: Flutter and Dart version of the Milo companion robot app.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
