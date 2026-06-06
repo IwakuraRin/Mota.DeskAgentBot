@@ -1,8 +1,5 @@
-// 文件作用：组合应用主题、全局状态、页面导航和各页面事件，是 Flutter 版本的应用根组件。
-
 import 'package:flutter/material.dart';
 
-import 'shared/theme/app_theme.dart';
 import 'core/BT_HardwareDrive/bluetooth_device_info.dart';
 import 'features/bluetooth/models/companion_connect_state.dart';
 import 'features/bluetooth/pages/robot_bluetooth_page.dart';
@@ -14,6 +11,7 @@ import 'features/robot_face/pages/immersive_robot_page.dart';
 import 'features/robot_face/pages/robot_home_page.dart';
 import 'features/settings/pages/robot_settings_page.dart';
 import 'router/app_router.dart';
+import 'shared/theme/app_theme.dart';
 import 'shared/widgets/app_menu_overlay.dart';
 import 'shared/widgets/floating_bottom_bar.dart';
 
@@ -41,9 +39,9 @@ class CompanionRobotApp extends StatefulWidget {
 class _CompanionRobotAppState extends State<CompanionRobotApp> {
   CompanionBotMood _mood = CompanionBotMood.neutral;
   CompanionConnectState _connectState = CompanionConnectState.disconnected;
-  String _lastCommand = '暂无指令';
-  String _aiMessage = '点击 AI 呼唤，可以模拟让机器人来到你旁边。';
   RobotTab _currentTab = RobotTab.home;
+  String _lastCommand = '暂无指令';
+  String _aiMessage = '点击 AI 呼唤，可以模拟让机器人来到你身边。';
   int _bluetoothScanRequest = 0;
   bool _showFullScreenFace = false;
   bool _showAppMenu = false;
@@ -135,7 +133,7 @@ class _CompanionRobotAppState extends State<CompanionRobotApp> {
       _connectState = CompanionConnectState.connected;
       _mood = CompanionBotMood.happy;
       _lastCommand = '已连接 LinBot-01';
-      _aiMessage = '连接成功，当前是前端模拟连接。后期可以接真实蓝牙。';
+      _aiMessage = '连接成功，当前是前端模拟连接。后续可以接真实蓝牙。';
     });
   }
 
@@ -178,7 +176,7 @@ class _CompanionRobotAppState extends State<CompanionRobotApp> {
         CompanionMoveCommand.right => CompanionBotMood.neutral,
         CompanionMoveCommand.stop => CompanionBotMood.sleepy,
       };
-      _aiMessage = '已发送前端指令：${command.title}。后期这里接蓝牙控制。';
+      _aiMessage = '已发送前端指令：${command.title}。后续这里接蓝牙控制。';
     });
   }
 }

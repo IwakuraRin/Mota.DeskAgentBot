@@ -23,10 +23,10 @@ class FloatingBottomBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 14),
         child: Material(
-          color: Colors.white.withOpacity(0.95),
+          color: Colors.white.withValues(alpha: 0.95),
           borderRadius: BorderRadius.circular(30),
           elevation: 18,
-          shadowColor: Colors.black.withOpacity(0.18),
+          shadowColor: Colors.black.withValues(alpha: 0.18),
           child: SizedBox(
             height: 74,
             child: Row(

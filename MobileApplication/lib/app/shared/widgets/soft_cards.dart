@@ -11,7 +11,7 @@ class SoftActionCard extends StatelessWidget {
     required this.emoji,
     required this.onTap,
     this.highlighted = false,
-    this.height = 100,
+    this.height = 92,
     super.key,
   });
 
@@ -24,27 +24,30 @@ class SoftActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final containerColor = highlighted ? AppColors.lime : Colors.white;
-    final iconColor = highlighted ? Colors.white.withOpacity(0.88) : const Color(0xFFFFEEE6);
-    final subtitleColor = highlighted ? AppColors.ink.withOpacity(0.62) : AppColors.muted;
+    final containerColor = highlighted ? AppColors.aquaSoft : Colors.white;
+    final iconColor = highlighted ? Colors.white : const Color(0xFFFFEEE6);
+    final subtitleColor =
+        highlighted ? AppColors.ink.withValues(alpha: 0.62) : AppColors.muted;
 
     return Material(
       color: containerColor,
       borderRadius: BorderRadius.circular(26),
-      elevation: 8,
-      shadowColor: Colors.black.withOpacity(0.14),
+      elevation: highlighted ? 7 : 5,
+      shadowColor: highlighted
+          ? AppColors.aqua.withValues(alpha: 0.22)
+          : Colors.black.withValues(alpha: 0.10),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
         child: SizedBox(
           height: height,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(14),
             child: Row(
               children: [
                 Container(
-                  width: 48,
-                  height: 48,
+                  width: 46,
+                  height: 46,
                   decoration: BoxDecoration(
                     color: iconColor,
                     borderRadius: BorderRadius.circular(18),
@@ -108,7 +111,7 @@ class ActivityItem extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
         elevation: 5,
-        shadowColor: Colors.black.withOpacity(0.11),
+        shadowColor: Colors.black.withValues(alpha: 0.11),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(
@@ -140,7 +143,8 @@ class ActivityItem extends StatelessWidget {
                       subtitle,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: AppColors.muted, fontSize: 12),
+                      style:
+                          const TextStyle(color: AppColors.muted, fontSize: 12),
                     ),
                   ],
                 ),
@@ -180,7 +184,11 @@ class ControlButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg = danger ? AppColors.danger : orange ? AppColors.orange : AppColors.ink;
+    final bg = danger
+        ? AppColors.danger
+        : orange
+            ? AppColors.orange
+            : AppColors.ink;
 
     return Material(
       color: bg,
@@ -222,7 +230,11 @@ class CompactActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg = danger ? AppColors.danger : highlighted ? AppColors.ink : const Color(0xFFF3F4F0);
+    final bg = danger
+        ? AppColors.danger
+        : highlighted
+            ? AppColors.ink
+            : const Color(0xFFF3F4F0);
     final fg = danger || highlighted ? Colors.white : AppColors.ink;
 
     return Material(
@@ -236,7 +248,8 @@ class CompactActionButton extends StatelessWidget {
           child: Center(
             child: Text(
               text,
-              style: TextStyle(color: fg, fontSize: 14, fontWeight: FontWeight.w800),
+              style: TextStyle(
+                  color: fg, fontSize: 14, fontWeight: FontWeight.w800),
             ),
           ),
         ),
@@ -262,7 +275,8 @@ class StatRow extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(title, style: const TextStyle(color: AppColors.muted, fontSize: 14)),
+            child: Text(title,
+                style: const TextStyle(color: AppColors.muted, fontSize: 14)),
           ),
           Text(
             value,

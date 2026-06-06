@@ -21,13 +21,16 @@ class CompanionRobotFace extends StatefulWidget {
   State<CompanionRobotFace> createState() => _CompanionRobotFaceState();
 }
 
-class _CompanionRobotFaceState extends State<CompanionRobotFace> with SingleTickerProviderStateMixin {
+class _CompanionRobotFaceState extends State<CompanionRobotFace>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _loop;
 
   @override
   void initState() {
     super.initState();
-    _loop = AnimationController(vsync: this, duration: const Duration(milliseconds: 2800))..repeat();
+    _loop = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 2800))
+      ..repeat();
   }
 
   @override
@@ -65,13 +68,16 @@ class RobotHeroPreview extends StatefulWidget {
   State<RobotHeroPreview> createState() => _RobotHeroPreviewState();
 }
 
-class _RobotHeroPreviewState extends State<RobotHeroPreview> with SingleTickerProviderStateMixin {
+class _RobotHeroPreviewState extends State<RobotHeroPreview>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _loop;
 
   @override
   void initState() {
     super.initState();
-    _loop = AnimationController(vsync: this, duration: const Duration(milliseconds: 3000))..repeat();
+    _loop = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 3000))
+      ..repeat();
   }
 
   @override
@@ -86,7 +92,8 @@ class _RobotHeroPreviewState extends State<RobotHeroPreview> with SingleTickerPr
       animation: _loop,
       builder: (context, child) {
         return CustomPaint(
-          painter: RobotHeroPreviewPainter(mood: widget.mood, tick: _loop.value),
+          painter:
+              RobotHeroPreviewPainter(mood: widget.mood, tick: _loop.value),
         );
       },
     );
@@ -105,13 +112,16 @@ class ImmersiveRobotDisplay extends StatefulWidget {
   State<ImmersiveRobotDisplay> createState() => _ImmersiveRobotDisplayState();
 }
 
-class _ImmersiveRobotDisplayState extends State<ImmersiveRobotDisplay> with SingleTickerProviderStateMixin {
+class _ImmersiveRobotDisplayState extends State<ImmersiveRobotDisplay>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _loop;
 
   @override
   void initState() {
     super.initState();
-    _loop = AnimationController(vsync: this, duration: const Duration(milliseconds: 3200))..repeat();
+    _loop = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 3200))
+      ..repeat();
   }
 
   @override
@@ -129,7 +139,8 @@ class _ImmersiveRobotDisplayState extends State<ImmersiveRobotDisplay> with Sing
             animation: _loop,
             builder: (context, child) {
               return CustomPaint(
-                painter: ImmersiveRobotDisplayPainter(mood: widget.mood, tick: _loop.value),
+                painter: ImmersiveRobotDisplayPainter(
+                    mood: widget.mood, tick: _loop.value),
               );
             },
           ),
@@ -141,7 +152,8 @@ class _ImmersiveRobotDisplayState extends State<ImmersiveRobotDisplay> with Sing
           child: Text(
             immersiveCaption(widget.mood),
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white, fontSize: 19, fontWeight: FontWeight.w800),
+            style: const TextStyle(
+                color: Colors.white, fontSize: 19, fontWeight: FontWeight.w800),
           ),
         ),
         Positioned(
@@ -151,7 +163,10 @@ class _ImmersiveRobotDisplayState extends State<ImmersiveRobotDisplay> with Sing
           child: Text(
             '轻点屏幕返回',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white.withOpacity(0.42), fontSize: 11, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.42),
+                fontSize: 11,
+                fontWeight: FontWeight.w700),
           ),
         ),
         Positioned(
@@ -160,7 +175,8 @@ class _ImmersiveRobotDisplayState extends State<ImmersiveRobotDisplay> with Sing
           child: Container(
             width: 9,
             height: 9,
-            decoration: BoxDecoration(color: widget.mood.moodColor, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+                color: widget.mood.moodColor, shape: BoxShape.circle),
           ),
         ),
       ],
@@ -203,16 +219,37 @@ class CompanionRobotFacePainter extends CustomPainter {
     final faceTop = h * (largeMode ? 0.24 : 0.22);
     final center = Offset(w * 0.5, h * 0.48);
 
-    canvas.drawCircle(center, w * 0.40 * scale, Paint()..color = color.withOpacity(0.11 * glowPulse));
-    canvas.drawCircle(center, w * 0.50 * scale, Paint()..color = color.withOpacity(0.07 * glowPulse));
+    canvas.drawCircle(center, w * 0.40 * scale,
+        Paint()..color = color.withValues(alpha: 0.11 * glowPulse));
+    canvas.drawCircle(center, w * 0.50 * scale,
+        Paint()..color = color.withValues(alpha: 0.07 * glowPulse));
 
-    _roundRect(canvas, Rect.fromLTWH(faceLeft, faceTop, faceWidth, faceHeight), 54, AppColors.robotDark);
-    _roundRectStroke(canvas, Rect.fromLTWH(faceLeft, faceTop, faceWidth, faceHeight), 54, color.withOpacity(0.48), 9);
-    _roundRect(canvas, Rect.fromLTWH(faceLeft + 22, faceTop + 18, faceWidth - 44, 30), 30, Colors.white.withOpacity(0.07));
+    _roundRect(canvas, Rect.fromLTWH(faceLeft, faceTop, faceWidth, faceHeight),
+        54, AppColors.robotDark);
+    _roundRectStroke(
+        canvas,
+        Rect.fromLTWH(faceLeft, faceTop, faceWidth, faceHeight),
+        54,
+        color.withValues(alpha: 0.48),
+        9);
+    _roundRect(
+        canvas,
+        Rect.fromLTWH(faceLeft + 22, faceTop + 18, faceWidth - 44, 30),
+        30,
+        Colors.white.withValues(alpha: 0.07));
 
-    _drawAntenna(canvas, centerX: w * 0.5, topY: faceTop, color: color, scale: scale);
-    _drawEar(canvas, x: faceLeft - 24, y: faceTop + faceHeight * 0.40, color: color, scale: scale);
-    _drawEar(canvas, x: faceLeft + faceWidth + 24, y: faceTop + faceHeight * 0.40, color: color, scale: scale);
+    _drawAntenna(canvas,
+        centerX: w * 0.5, topY: faceTop, color: color, scale: scale);
+    _drawEar(canvas,
+        x: faceLeft - 24,
+        y: faceTop + faceHeight * 0.40,
+        color: color,
+        scale: scale);
+    _drawEar(canvas,
+        x: faceLeft + faceWidth + 24,
+        y: faceTop + faceHeight * 0.40,
+        color: color,
+        scale: scale);
     _drawEye(canvas, Offset(w * 0.36, h * 0.43 + eyeOffsetY), scale);
     _drawEye(canvas, Offset(w * 0.64, h * 0.43 + eyeOffsetY), scale);
     _drawBrows(canvas, w, h, color, scale);
@@ -226,8 +263,11 @@ class CompanionRobotFacePainter extends CustomPainter {
     _drawWhiteEye(canvas, center, 28 * scale);
   }
 
-  void _drawBrows(Canvas canvas, double w, double h, Color color, double scale) {
-    if (mood == CompanionBotMood.happy || mood == CompanionBotMood.love || mood == CompanionBotMood.surprised) {
+  void _drawBrows(
+      Canvas canvas, double w, double h, Color color, double scale) {
+    if (mood == CompanionBotMood.happy ||
+        mood == CompanionBotMood.love ||
+        mood == CompanionBotMood.surprised) {
       return;
     }
 
@@ -236,11 +276,14 @@ class CompanionRobotFacePainter extends CustomPainter {
       CompanionBotMood.sad => -0.7,
       _ => 0.0,
     };
-    _line(canvas, Offset(w * 0.27, h * 0.32 - 10 * tilt), Offset(w * 0.43, h * 0.32 + 12 * tilt), color, 8 * scale);
-    _line(canvas, Offset(w * 0.73, h * 0.32 - 10 * tilt), Offset(w * 0.57, h * 0.32 + 12 * tilt), color, 8 * scale);
+    _line(canvas, Offset(w * 0.27, h * 0.32 - 10 * tilt),
+        Offset(w * 0.43, h * 0.32 + 12 * tilt), color, 8 * scale);
+    _line(canvas, Offset(w * 0.73, h * 0.32 - 10 * tilt),
+        Offset(w * 0.57, h * 0.32 + 12 * tilt), color, 8 * scale);
   }
 
-  void _drawMouth(Canvas canvas, double w, double h, Color color, double scale) {
+  void _drawMouth(
+      Canvas canvas, double w, double h, Color color, double scale) {
     final mouthCenterX = w * 0.5;
     final mouthY = h * 0.62;
     final open = switch (mood) {
@@ -251,9 +294,14 @@ class CompanionRobotFacePainter extends CustomPainter {
     };
 
     if (open > 0.1) {
-      _oval(canvas, Rect.fromLTWH(mouthCenterX - 30 * scale, mouthY - 8 * scale, 60 * scale, 50 * open * scale), color.withOpacity(0.22));
+      _oval(
+          canvas,
+          Rect.fromLTWH(mouthCenterX - 30 * scale, mouthY - 8 * scale,
+              60 * scale, 50 * open * scale),
+          color.withValues(alpha: 0.22));
       canvas.drawOval(
-        Rect.fromLTWH(mouthCenterX - 18 * scale, mouthY, 36 * scale, 34 * open * scale),
+        Rect.fromLTWH(
+            mouthCenterX - 18 * scale, mouthY, 36 * scale, 34 * open * scale),
         Paint()
           ..color = color
           ..style = PaintingStyle.stroke
@@ -263,9 +311,12 @@ class CompanionRobotFacePainter extends CustomPainter {
     }
 
     if (mood == CompanionBotMood.sleepy) {
-      _line(canvas, Offset(w * 0.43, mouthY), Offset(w * 0.57, mouthY), color, 8 * scale);
-      canvas.drawCircle(Offset(w * 0.62, mouthY - 18 * scale), 7 * scale, Paint()..color = color);
-      canvas.drawCircle(Offset(w * 0.66, mouthY - 34 * scale), 5 * scale, Paint()..color = color.withOpacity(0.65));
+      _line(canvas, Offset(w * 0.43, mouthY), Offset(w * 0.57, mouthY), color,
+          8 * scale);
+      canvas.drawCircle(Offset(w * 0.62, mouthY - 18 * scale), 7 * scale,
+          Paint()..color = color);
+      canvas.drawCircle(Offset(w * 0.66, mouthY - 34 * scale), 5 * scale,
+          Paint()..color = color.withValues(alpha: 0.65));
       return;
     }
 
@@ -278,7 +329,8 @@ class CompanionRobotFacePainter extends CustomPainter {
     };
 
     if (smile.abs() < 0.15) {
-      _line(canvas, Offset(w * 0.41, mouthY), Offset(w * 0.59, mouthY), color, 9 * scale);
+      _line(canvas, Offset(w * 0.41, mouthY), Offset(w * 0.59, mouthY), color,
+          9 * scale);
     } else {
       final arcTop = smile >= 0 ? mouthY - 36 * scale : mouthY + 10 * scale;
       final startAngle = smile >= 0 ? 20.0 : 200.0;
@@ -296,29 +348,46 @@ class CompanionRobotFacePainter extends CustomPainter {
     }
   }
 
-  void _drawCheeks(Canvas canvas, double w, double h, Color color, double scale) {
+  void _drawCheeks(
+      Canvas canvas, double w, double h, Color color, double scale) {
     if (mood != CompanionBotMood.happy && mood != CompanionBotMood.love) {
       return;
     }
 
-    canvas.drawCircle(Offset(w * 0.27, h * 0.57), 18 * scale, Paint()..color = color.withOpacity(0.18));
-    canvas.drawCircle(Offset(w * 0.73, h * 0.57), 18 * scale, Paint()..color = color.withOpacity(0.18));
+    canvas.drawCircle(Offset(w * 0.27, h * 0.57), 18 * scale,
+        Paint()..color = color.withValues(alpha: 0.18));
+    canvas.drawCircle(Offset(w * 0.73, h * 0.57), 18 * scale,
+        Paint()..color = color.withValues(alpha: 0.18));
   }
 
-  void _drawAntenna(Canvas canvas, {required double centerX, required double topY, required Color color, required double scale}) {
-    _line(canvas, Offset(centerX, topY), Offset(centerX, topY - 38 * scale), color.withOpacity(0.75), 7 * scale);
-    canvas.drawCircle(Offset(centerX, topY - 48 * scale), 12 * scale, Paint()..color = color);
+  void _drawAntenna(Canvas canvas,
+      {required double centerX,
+      required double topY,
+      required Color color,
+      required double scale}) {
+    _line(canvas, Offset(centerX, topY), Offset(centerX, topY - 38 * scale),
+        color.withValues(alpha: 0.75), 7 * scale);
+    canvas.drawCircle(
+        Offset(centerX, topY - 48 * scale), 12 * scale, Paint()..color = color);
   }
 
-  void _drawEar(Canvas canvas, {required double x, required double y, required Color color, required double scale}) {
-    final rect = Rect.fromLTWH(x - 12 * scale, y - 36 * scale, 24 * scale, 72 * scale);
+  void _drawEar(Canvas canvas,
+      {required double x,
+      required double y,
+      required Color color,
+      required double scale}) {
+    final rect =
+        Rect.fromLTWH(x - 12 * scale, y - 36 * scale, 24 * scale, 72 * scale);
     _roundRect(canvas, rect, 18, AppColors.robotDark);
-    _roundRectStroke(canvas, rect, 18, color.withOpacity(0.65), 5 * scale);
+    _roundRectStroke(
+        canvas, rect, 18, color.withValues(alpha: 0.65), 5 * scale);
   }
 
   @override
   bool shouldRepaint(covariant CompanionRobotFacePainter oldDelegate) {
-    return oldDelegate.mood != mood || oldDelegate.tick != tick || oldDelegate.largeMode != largeMode;
+    return oldDelegate.mood != mood ||
+        oldDelegate.tick != tick ||
+        oldDelegate.largeMode != largeMode;
   }
 }
 
@@ -330,32 +399,17 @@ class RobotHeroPreviewPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final glowColor = switch (mood) {
-      CompanionBotMood.angry => const Color(0xFFFF3B4E),
-      CompanionBotMood.love => const Color(0xFFFF5EA8),
-      CompanionBotMood.surprised => const Color(0xFFFACC15),
-      _ => const Color(0xFF1E63FF),
-    };
-    final breathe = 0.94 + _easeSin(tick) * 0.10;
+    final breathe = 0.96 + _easeSin(tick) * 0.08;
     final centerX = size.width * 0.5;
-    final screenW = size.width * 0.64;
-    final screenH = size.height * 0.42;
-    final screenLeft = centerX - screenW / 2;
-    final screenTop = size.height * 0.15;
+    final faceCenterY = size.height * 0.46;
+    final eyeRadius = size.width * 0.075 * breathe;
 
-    canvas.drawCircle(Offset(centerX, screenTop + screenH * 0.62), size.width * 0.27, Paint()..color = glowColor.withOpacity(0.11));
-    _roundRect(canvas, Rect.fromLTWH(screenLeft + 6, screenTop + screenH + 44, screenW - 12, 20), 24, Colors.black.withOpacity(0.34));
-    _roundRect(canvas, Rect.fromLTWH(screenLeft, screenTop, screenW, screenH), 46, AppColors.robotScreen);
-    _roundRectStroke(canvas, Rect.fromLTWH(screenLeft, screenTop, screenW, screenH), 46, glowColor.withOpacity(0.45), 4);
-    _roundRect(canvas, Rect.fromLTWH(screenLeft + 10, screenTop + 8, screenW - 20, screenH * 0.20), 32, Colors.white.withOpacity(0.12));
-
-    final eyeRadius = screenW * 0.08 * breathe;
-    final eyeCenterY = screenTop + screenH * 0.36 + eyeRadius;
-    _drawWhiteEye(canvas, Offset(screenLeft + screenW * 0.31, eyeCenterY), eyeRadius);
-    _drawWhiteEye(canvas, Offset(screenLeft + screenW * 0.69, eyeCenterY), eyeRadius);
+    _drawWhiteEye(canvas, Offset(centerX - size.width * 0.18, faceCenterY), eyeRadius);
+    _drawWhiteEye(canvas, Offset(centerX + size.width * 0.18, faceCenterY), eyeRadius);
 
     canvas.drawArc(
-      Rect.fromLTWH(centerX - screenW * 0.09, screenTop + screenH * 0.58, screenW * 0.18, screenH * 0.18),
+      Rect.fromLTWH(centerX - size.width * 0.08, faceCenterY + eyeRadius * 0.92,
+          size.width * 0.16, size.height * 0.12),
       _deg(20),
       _deg(140),
       false,
@@ -367,20 +421,16 @@ class RobotHeroPreviewPainter extends CustomPainter {
     );
 
     for (var index = 0; index < 4; index++) {
-      final barHeight = 7.0 + index * 4;
-      _roundRect(canvas, Rect.fromLTWH(screenLeft + screenW - 38 + index * 7, screenTop + 20 - barHeight, 4, barHeight), 3, Colors.white.withOpacity(0.72));
+      final barHeight = 7.0 + index * 4.5;
+      _roundRect(
+          canvas,
+          Rect.fromLTWH(size.width - 58 + index * 8,
+              faceCenterY - eyeRadius * 0.9 - barHeight, 5, barHeight),
+          3,
+          Colors.white.withValues(alpha: 0.72));
     }
-
-    final bodyTop = screenTop + screenH + 8;
-    final bodyW = screenW * 0.46;
-    final bodyH = size.height * 0.26;
-    final bodyLeft = centerX - bodyW / 2;
-    _roundRect(canvas, Rect.fromLTWH(bodyLeft, bodyTop, bodyW, bodyH), 28, const Color(0xFFF9FAFB));
-    _roundRect(canvas, Rect.fromLTWH(centerX - bodyW * 0.28, bodyTop + bodyH * 0.38, bodyW * 0.56, bodyH * 0.22), 18, AppColors.robotDark);
-    _roundRect(canvas, Rect.fromLTWH(centerX - bodyW * 0.18, bodyTop + bodyH * 0.45, bodyW * 0.36, 5), 6, const Color(0xFF35C8FF));
-    _roundRect(canvas, Rect.fromLTWH(bodyLeft - 14, bodyTop + bodyH * 0.30, 22, bodyH * 0.56), 12, const Color(0xFF374151));
-    _roundRect(canvas, Rect.fromLTWH(bodyLeft + bodyW - 8, bodyTop + bodyH * 0.30, 22, bodyH * 0.56), 12, const Color(0xFF374151));
   }
+
 
   @override
   bool shouldRepaint(covariant RobotHeroPreviewPainter oldDelegate) {
@@ -406,16 +456,11 @@ class ImmersiveRobotDisplayPainter extends CustomPainter {
     canvas.drawRect(
       rect,
       Paint()
-        ..shader = RadialGradient(
-          colors: const [Color(0xFF10233A), Color(0xFF07111F), Colors.black],
-          center: const Alignment(0, -0.28),
-          radius: 0.78,
+        ..shader = const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFF020204), Color(0xFF06070A), Colors.black],
         ).createShader(rect),
-    );
-    canvas.drawCircle(
-      Offset(size.width * 0.5, size.height * 0.42),
-      size.width * 0.30,
-      Paint()..color = const Color(0xFF36C8FF).withOpacity(0.08),
     );
   }
 
@@ -434,9 +479,11 @@ class ImmersiveRobotDisplayPainter extends CustomPainter {
     const topY = 32.0;
     for (var index = 0; index < 5; index++) {
       final h = 10.0 + index * 6;
-      _roundRect(canvas, Rect.fromLTWH(startX + index * 9, topY + 34 - h, 5, h), 3, Colors.white.withOpacity(0.78));
+      _roundRect(canvas, Rect.fromLTWH(startX + index * 9, topY + 34 - h, 5, h),
+          3, Colors.white.withValues(alpha: 0.78));
     }
-    canvas.drawCircle(Offset(34, size.height * 0.5), 3, Paint()..color = Colors.white.withOpacity(0.72));
+    canvas.drawCircle(Offset(34, size.height * 0.5), 3,
+        Paint()..color = Colors.white.withValues(alpha: 0.72));
   }
 
   @override
@@ -444,6 +491,7 @@ class ImmersiveRobotDisplayPainter extends CustomPainter {
     return oldDelegate.mood != mood || oldDelegate.tick != tick;
   }
 }
+
 
 double _easeSin(double value) {
   return (math.sin(value * math.pi * 2 - math.pi / 2) + 1) / 2;
@@ -454,10 +502,12 @@ double _deg(double degrees) {
 }
 
 void _roundRect(Canvas canvas, Rect rect, double radius, Color color) {
-  canvas.drawRRect(RRect.fromRectAndRadius(rect, Radius.circular(radius)), Paint()..color = color);
+  canvas.drawRRect(RRect.fromRectAndRadius(rect, Radius.circular(radius)),
+      Paint()..color = color);
 }
 
-void _roundRectStroke(Canvas canvas, Rect rect, double radius, Color color, double width) {
+void _roundRectStroke(
+    Canvas canvas, Rect rect, double radius, Color color, double width) {
   canvas.drawRRect(
     RRect.fromRectAndRadius(rect, Radius.circular(radius)),
     Paint()

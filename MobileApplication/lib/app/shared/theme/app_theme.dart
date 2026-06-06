@@ -12,14 +12,16 @@ ThemeData buildAppTheme() {
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.orange,
       brightness: Brightness.light,
-      background: AppColors.pageBackground,
       surface: Colors.white,
     ),
     fontFamily: null,
     textTheme: const TextTheme(
-      headlineMedium: TextStyle(fontSize: 30, fontWeight: FontWeight.w800, color: AppColors.ink),
-      titleLarge: TextStyle(fontSize: 21, fontWeight: FontWeight.w800, color: AppColors.ink),
-      titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: AppColors.ink),
+      headlineMedium: TextStyle(
+          fontSize: 30, fontWeight: FontWeight.w800, color: AppColors.ink),
+      titleLarge: TextStyle(
+          fontSize: 21, fontWeight: FontWeight.w800, color: AppColors.ink),
+      titleMedium: TextStyle(
+          fontSize: 16, fontWeight: FontWeight.w700, color: AppColors.ink),
       bodyMedium: TextStyle(fontSize: 14, color: AppColors.muted),
     ),
   );

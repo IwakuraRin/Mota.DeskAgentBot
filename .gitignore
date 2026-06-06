@@ -19,3 +19,6 @@
 build/
 dist/
 out/
+
+# Local duplicate workspace
+Mota.DeskAgentBot_new/
