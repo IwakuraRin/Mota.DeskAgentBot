@@ -45,7 +45,8 @@ class PageTitle extends StatelessWidget {
         Container(
           width: 52,
           height: 52,
-          decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          decoration:
+              const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
           alignment: Alignment.center,
           child: const Text('🤖', style: TextStyle(fontSize: 22)),
         ),

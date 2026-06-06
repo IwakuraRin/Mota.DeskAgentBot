@@ -28,27 +28,36 @@ class RobotSettingsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const PageTitle(title: 'Settings', subtitle: 'Bluetooth and robot config'),
+          const PageTitle(
+              title: 'Settings', subtitle: 'Bluetooth and robot config'),
           const SizedBox(height: 22),
           Material(
             color: Colors.white,
             borderRadius: BorderRadius.circular(32),
             elevation: 8,
-            shadowColor: Colors.black.withOpacity(0.12),
+            shadowColor: Colors.black.withValues(alpha: 0.12),
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Bluetooth', style: TextStyle(color: AppColors.ink, fontSize: 20, fontWeight: FontWeight.w700)),
+                  const Text('Bluetooth',
+                      style: TextStyle(
+                          color: AppColors.ink,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700)),
                   const SizedBox(height: 8),
-                  Text('当前状态：${statusText(connectState)}', style: const TextStyle(color: AppColors.muted, fontSize: 14)),
+                  Text('当前状态：${statusText(connectState)}',
+                      style: const TextStyle(
+                          color: AppColors.muted, fontSize: 14)),
                   const SizedBox(height: 18),
                   ControlButton(text: '扫描机器人', onTap: onScanTap),
                   const SizedBox(height: 10),
-                  ControlButton(text: '连接 LinBot-01', orange: true, onTap: onConnectTap),
+                  ControlButton(
+                      text: '连接 LinBot-01', orange: true, onTap: onConnectTap),
                   const SizedBox(height: 10),
-                  ControlButton(text: '断开连接', danger: true, onTap: onDisconnectTap),
+                  ControlButton(
+                      text: '断开连接', danger: true, onTap: onDisconnectTap),
                 ],
               ),
             ),
