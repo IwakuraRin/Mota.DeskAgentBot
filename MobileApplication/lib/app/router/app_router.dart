@@ -2,8 +2,6 @@
 
 enum RobotTab {
   home('🏠', 'Home'),
-  move('🎮', 'Move'),
-  bluetooth('📡', 'BT'),
   settings('⚙️', 'Set');
 
   const RobotTab(this.icon, this.label);

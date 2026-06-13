@@ -8,5 +8,8 @@ void main() {
 
     expect(find.text('Lin Robot'), findsOneWidget);
     expect(find.text('Home'), findsOneWidget);
+    expect(find.text('Set'), findsOneWidget);
+    expect(find.text('Move'), findsNothing);
+    expect(find.text('BT'), findsNothing);
   });
 }

@@ -3,11 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/BT_HardwareDrive/bluetooth_device_info.dart';
 import 'features/bluetooth/models/companion_connect_state.dart';
-import 'features/bluetooth/pages/robot_bluetooth_page.dart';
-import 'features/bot_control/models/companion_move_command.dart';
-import 'features/bot_control/pages/robot_control_page.dart';
 import 'features/robot_face/models/companion_bot_mood.dart';
 import 'features/robot_face/pages/immersive_robot_page.dart';
 import 'features/robot_face/pages/robot_home_page.dart';
@@ -57,7 +53,6 @@ class _CompanionRobotAppState extends State<CompanionRobotApp> {
   RobotTab _currentTab = RobotTab.home;
   String _lastCommand = '暂无指令';
   String _aiMessage = '点击 AI 呼唤，可以模拟让机器人来到你身边。';
-  int _bluetoothScanRequest = 0;
   bool _showFullScreenFace = false;
 
   @override
@@ -103,26 +98,7 @@ class _CompanionRobotAppState extends State<CompanionRobotApp> {
           onMoodChange: (mood) => setState(() => _mood = mood),
           onFullScreenTap: () => setState(() => _showFullScreenFace = true),
           onAiCallTap: _aiCall,
-          onScanTap: _openBluetoothScanner,
           onConnectTap: _quickConnect,
-        ),
-      RobotTab.move => RobotControlPage(
-          connectState: _connectState,
-          mood: _mood,
-          lastCommand: _lastCommand,
-          aiMessage: _aiMessage,
-          onMoodChange: (mood) => setState(() => _mood = mood),
-          onScanTap: _openBluetoothScanner,
-          onConnectTap: _quickConnect,
-          onDisconnectTap: _disconnect,
-          onMoveCommand: _moveRobot,
-        ),
-      RobotTab.bluetooth => RobotBluetoothPage(
-          connectState: _connectState,
-          scanRequestId: _bluetoothScanRequest,
-          onScanStarted: _scanStarted,
-          onDeviceConnected: _deviceConnected,
-          onDisconnectTap: _disconnect,
         ),
       RobotTab.settings => RobotSettingsPage(
           connectState: _connectState,
@@ -171,45 +147,12 @@ class _CompanionRobotAppState extends State<CompanionRobotApp> {
     setState(() => _settings = settings);
   }
 
-  void _openBluetoothScanner() {
-    setState(() {
-      _currentTab = RobotTab.bluetooth;
-      _bluetoothScanRequest += 1;
-    });
-  }
-
-  void _scanStarted() {
-    setState(() {
-      _connectState = CompanionConnectState.scanning;
-      _lastCommand = '正在扫描附近蓝牙机器人';
-      _aiMessage = '已开始扫描：LinBot-01 / Robot-01 / DemoBot';
-    });
-  }
-
   void _quickConnect() {
     setState(() {
       _connectState = CompanionConnectState.connected;
       _mood = CompanionBotMood.happy;
       _lastCommand = '已连接 LinBot-01';
-      _aiMessage = '连接成功，当前是前端模拟连接。后续可以接真实蓝牙。';
-    });
-  }
-
-  void _deviceConnected(BtDeviceInfo device) {
-    setState(() {
-      _connectState = CompanionConnectState.connected;
-      _mood = CompanionBotMood.happy;
-      _lastCommand = '已连接 ${device.name}';
-      _aiMessage = '已选择蓝牙设备：${device.name}。后续接入真实机器人协议后可在这里发送控制指令。';
-    });
-  }
-
-  void _disconnect() {
-    setState(() {
-      _connectState = CompanionConnectState.disconnected;
-      _mood = CompanionBotMood.neutral;
-      _lastCommand = '已断开连接';
-      _aiMessage = '机器人已断开连接。';
+      _aiMessage = '连接成功，当前是前端模拟连接。';
     });
   }
 
@@ -219,22 +162,7 @@ class _CompanionRobotAppState extends State<CompanionRobotApp> {
       _lastCommand = 'AI 呼唤：到我旁边';
       _aiMessage = _connectState == CompanionConnectState.connected
           ? '收到呼唤：机器人正在向你靠近。'
-          : '已模拟呼唤，但当前还没有连接真实蓝牙机器人。';
-    });
-  }
-
-  void _moveRobot(CompanionMoveCommand command) {
-    setState(() {
-      _lastCommand = '移动指令：${command.title}';
-      _mood = switch (command) {
-        CompanionMoveCommand.comeHere => CompanionBotMood.love,
-        CompanionMoveCommand.forward => CompanionBotMood.happy,
-        CompanionMoveCommand.backward => CompanionBotMood.surprised,
-        CompanionMoveCommand.left => CompanionBotMood.neutral,
-        CompanionMoveCommand.right => CompanionBotMood.neutral,
-        CompanionMoveCommand.stop => CompanionBotMood.sleepy,
-      };
-      _aiMessage = '已发送前端指令：${command.title}。后续这里接蓝牙控制。';
+          : '已模拟呼唤，但当前还没有连接机器人。';
     });
   }
 }
