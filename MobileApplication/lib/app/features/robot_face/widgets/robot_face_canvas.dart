@@ -404,23 +404,11 @@ class RobotHeroPreviewPainter extends CustomPainter {
     final faceCenterY = size.height * 0.46;
     final eyeRadius = size.width * 0.075 * breathe;
 
-    _drawWhiteEye(
-        canvas, Offset(centerX - size.width * 0.18, faceCenterY), eyeRadius);
-    _drawWhiteEye(
-        canvas, Offset(centerX + size.width * 0.18, faceCenterY), eyeRadius);
-
-    canvas.drawArc(
-      Rect.fromLTWH(centerX - size.width * 0.08, faceCenterY + eyeRadius * 0.92,
-          size.width * 0.16, size.height * 0.12),
-      _deg(20),
-      _deg(140),
-      false,
-      Paint()
-        ..color = AppColors.robotEye
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 4
-        ..strokeCap = StrokeCap.round,
-    );
+    final blink = _blinkAmount(tick);
+    _drawBlinkingEye(canvas, Offset(centerX - size.width * 0.18, faceCenterY),
+        eyeRadius, blink);
+    _drawBlinkingEye(canvas, Offset(centerX + size.width * 0.18, faceCenterY),
+        eyeRadius, blink);
 
     for (var index = 0; index < 4; index++) {
       final barHeight = 7.0 + index * 4.5;
@@ -499,6 +487,26 @@ double _easeSin(double value) {
 
 double _deg(double degrees) {
   return degrees * math.pi / 180;
+}
+
+double _blinkAmount(double tick) {
+  const blinkDuration = 0.12;
+  final phase = (tick + 0.08) % 1.0;
+  if (phase > blinkDuration) {
+    return 0;
+  }
+  return math.sin((phase / blinkDuration) * math.pi);
+}
+
+void _drawBlinkingEye(
+    Canvas canvas, Offset center, double radius, double blinkAmount) {
+  final heightScale = 1 - blinkAmount * 0.9;
+  final eyeRect = Rect.fromCenter(
+    center: center,
+    width: radius * 2,
+    height: math.max(radius * 0.16, radius * 2 * heightScale),
+  );
+  _oval(canvas, eyeRect, Colors.white);
 }
 
 void _roundRect(Canvas canvas, Rect rect, double radius, Color color) {
