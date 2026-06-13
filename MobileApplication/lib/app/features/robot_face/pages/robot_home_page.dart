@@ -18,7 +18,6 @@ class RobotHomePage extends StatelessWidget {
     required this.onMoodChange,
     required this.onFullScreenTap,
     required this.onAiCallTap,
-    required this.onScanTap,
     required this.onConnectTap,
     super.key,
   });
@@ -30,7 +29,6 @@ class RobotHomePage extends StatelessWidget {
   final ValueChanged<CompanionBotMood> onMoodChange;
   final VoidCallback onFullScreenTap;
   final VoidCallback onAiCallTap;
-  final VoidCallback onScanTap;
   final VoidCallback onConnectTap;
 
   bool get _connected => connectState == CompanionConnectState.connected;
@@ -59,28 +57,12 @@ class RobotHomePage extends StatelessWidget {
                 onAiCallTap: onAiCallTap,
               ),
               const SizedBox(height: 14),
-              Row(
-                children: [
-                  Expanded(
-                    child: _CompactHomeAction(
-                      icon: Icons.radar_rounded,
-                      title: '扫描机器人',
-                      subtitle: '打开蓝牙设备列表',
-                      color: AppColors.aquaSoft,
-                      onTap: onScanTap,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _CompactHomeAction(
-                      icon: Icons.link_rounded,
-                      title: '快速连接',
-                      subtitle: _connected ? '已在线' : '连接 LinBot-01',
-                      color: AppColors.coralSoft,
-                      onTap: onConnectTap,
-                    ),
-                  ),
-                ],
+              _CompactHomeAction(
+                icon: Icons.link_rounded,
+                title: '快速连接',
+                subtitle: _connected ? '已在线' : '连接 LinBot-01',
+                color: AppColors.coralSoft,
+                onTap: onConnectTap,
               ),
               const SizedBox(height: 18),
               const SectionTitle('Mood Expressions'),
@@ -372,6 +354,7 @@ class _CompactHomeAction extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: SizedBox(
+          width: double.infinity,
           height: 110,
           child: Padding(
             padding: const EdgeInsets.all(15),
