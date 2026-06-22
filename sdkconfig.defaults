@@ -9,3 +9,53 @@ CONFIG_SPIRAM=y
 CONFIG_SPIRAM_MODE_OCT=y
 CONFIG_SPIRAM_SPEED_80M=y
 CONFIG_SPIRAM_USE_MALLOC=y
+
+# Bluetooth stack: use NimBLE for BLE-only GATT/UART-style communication.
+CONFIG_BT_ENABLED=y
+# CONFIG_BT_BLUEDROID_ENABLED is not set
+CONFIG_BT_NIMBLE_ENABLED=y
+CONFIG_BT_CONTROLLER_ENABLED=y
+
+# Keep only the roles needed by this firmware:
+# - Peripheral/Broadcaster: phone discovers and connects to Mota.
+# - GATT Server: BLE UART-style command channel.
+# - Security: reserved for future pairing/bonding flows.
+# CONFIG_BT_NIMBLE_ROLE_CENTRAL is not set
+CONFIG_BT_NIMBLE_ROLE_PERIPHERAL=y
+CONFIG_BT_NIMBLE_ROLE_BROADCASTER=y
+# CONFIG_BT_NIMBLE_ROLE_OBSERVER is not set
+# CONFIG_BT_NIMBLE_GATT_CLIENT is not set
+CONFIG_BT_NIMBLE_GATT_SERVER=y
+CONFIG_BT_NIMBLE_SECURITY_ENABLE=y
+
+# Limit early firmware to one phone connection.
+CONFIG_BT_NIMBLE_MAX_CONNECTIONS=1
+CONFIG_BT_NIMBLE_MAX_CCCDS=4
+CONFIG_BT_NIMBLE_ATT_PREFERRED_MTU=128
+CONFIG_BT_NIMBLE_ATT_MAX_PREP_ENTRIES=8
+CONFIG_BT_NIMBLE_GATT_MAX_PROCS=2
+
+# Disable BLE capabilities not needed for the current peripheral/server design.
+# CONFIG_BT_NIMBLE_ENABLE_CONN_REATTEMPT is not set
+# CONFIG_BT_NIMBLE_HS_PVCY is not set
+# CONFIG_BT_NIMBLE_50_FEATURE_SUPPORT is not set
+# CONFIG_BT_NIMBLE_EXT_ADV is not set
+# CONFIG_BT_NIMBLE_EXT_SCAN is not set
+# CONFIG_BT_NIMBLE_ISO is not set
+# CONFIG_BT_NIMBLE_DTM_MODE_TEST is not set
+
+# Disable built-in standard services; Mota exposes its own custom service.
+# CONFIG_BT_NIMBLE_PROX_SERVICE is not set
+# CONFIG_BT_NIMBLE_ANS_SERVICE is not set
+# CONFIG_BT_NIMBLE_CTS_SERVICE is not set
+# CONFIG_BT_NIMBLE_HTP_SERVICE is not set
+# CONFIG_BT_NIMBLE_IPSS_SERVICE is not set
+# CONFIG_BT_NIMBLE_TPS_SERVICE is not set
+# CONFIG_BT_NIMBLE_IAS_SERVICE is not set
+# CONFIG_BT_NIMBLE_LLS_SERVICE is not set
+# CONFIG_BT_NIMBLE_SPS_SERVICE is not set
+# CONFIG_BT_NIMBLE_HR_SERVICE is not set
+# CONFIG_BT_NIMBLE_HID_SERVICE is not set
+# CONFIG_BT_NIMBLE_BAS_SERVICE is not set
+# CONFIG_BT_NIMBLE_DIS_SERVICE is not set
+CONFIG_BT_NIMBLE_GAP_SERVICE=y
