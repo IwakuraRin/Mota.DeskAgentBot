@@ -28,7 +28,7 @@ class RobotHomePage extends StatelessWidget {
                 (constraints.maxHeight * 0.22).clamp(160.0, 210.0).toDouble();
 
             return ColoredBox(
-              color: AppColors.heroDeepBlack,
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(24, 0, 24, 96),
                 child: Column(
@@ -46,7 +46,7 @@ class RobotHomePage extends StatelessWidget {
                       '你想和Mota聊些什么？',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColors.ink,
                         fontSize: 23,
                         fontWeight: FontWeight.w800,
                         height: 1.2,
@@ -127,7 +127,7 @@ class _PortraitOnlyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ColoredBox(
-      color: AppColors.heroDeepBlack,
+      color: Colors.white,
       child: Center(
         child: Padding(
           padding: EdgeInsets.all(28),
@@ -135,7 +135,7 @@ class _PortraitOnlyView extends StatelessWidget {
             '该功能仅支持竖屏使用',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.white,
+              color: AppColors.ink,
               fontSize: 18,
               fontWeight: FontWeight.w800,
             ),
