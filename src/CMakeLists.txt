@@ -1,1 +1,18 @@
-idf_component_register(SRCS "main.c" INCLUDE_DIRS ".")
+idf_component_register(
+    SRCS
+        "main.c"
+        "ble/advertising.c"
+        "ble/ble.c"
+        "ble/gap.c"
+        "ble/gatt.c"
+        "ble/stream.c"
+        "protocol/protocol.c"
+    INCLUDE_DIRS
+        "."
+        "../include"
+    REQUIRES
+        bt
+    PRIV_REQUIRES
+        cjson
+        nvs_flash
+)
