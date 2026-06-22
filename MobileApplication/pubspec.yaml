@@ -14,6 +14,9 @@ dependencies:
     image_picker: ^1.1.2
     flutter_blue_plus: ^2.0.0
     permission_handler: ^12.0.0
+    path_provider: ^2.1.5
+    record: ^6.1.2
+    sherpa_onnx: ^1.13.3
     shared_preferences: ^2.5.5
 
 dev_dependencies:
@@ -24,4 +27,5 @@ dev_dependencies:
 flutter:
     uses-material-design: true
     assets:
+        - assets/asr_models/
         - assets/icons/
