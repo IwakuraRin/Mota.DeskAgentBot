@@ -1,16 +1,35 @@
 import 'package:flutter/material.dart';
 
 import '../../shared/theme/app_colors.dart';
+import 'controllers/mota_chat_controller.dart';
 import 'models/companion_bot_mood.dart';
+import 'widgets/mota_chat_input.dart';
+import 'widgets/mota_chat_transcript.dart';
 import 'widgets/robot_face_canvas.dart';
 
-class RobotHomePage extends StatelessWidget {
-  const RobotHomePage({
-    required this.mood,
-    super.key,
-  });
+class RobotHomePage extends StatefulWidget {
+  const RobotHomePage({required this.mood, super.key});
 
   final CompanionBotMood mood;
+
+  @override
+  State<RobotHomePage> createState() => _RobotHomePageState();
+}
+
+class _RobotHomePageState extends State<RobotHomePage> {
+  late final MotaChatController _chatController;
+
+  @override
+  void initState() {
+    super.initState();
+    _chatController = MotaChatController();
+  }
+
+  @override
+  void dispose() {
+    _chatController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +57,7 @@ class RobotHomePage extends StatelessWidget {
                       height: faceHeight,
                       child: FractionallySizedBox(
                         widthFactor: 0.96,
-                        child: RobotHeroPreview(mood: mood),
+                        child: RobotHeroPreview(mood: widget.mood),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -52,8 +71,12 @@ class RobotHomePage extends StatelessWidget {
                         height: 1.2,
                       ),
                     ),
-                    const Spacer(),
-                    const _MotaChatInput(),
+                    Expanded(
+                      child: MotaChatTranscript(
+                        chatController: _chatController,
+                      ),
+                    ),
+                    MotaChatInput(chatController: _chatController),
                   ],
                 ),
               ),
@@ -61,62 +84,6 @@ class RobotHomePage extends StatelessWidget {
           },
         );
       },
-    );
-  }
-}
-
-class _MotaChatInput extends StatelessWidget {
-  const _MotaChatInput();
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(26),
-      elevation: 10,
-      shadowColor: Colors.black.withValues(alpha: 0.24),
-      child: TextField(
-        minLines: 1,
-        maxLines: 4,
-        textInputAction: TextInputAction.send,
-        style: const TextStyle(
-          color: AppColors.ink,
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
-        ),
-        decoration: InputDecoration(
-          hintText: '输入你想说的话',
-          hintStyle: const TextStyle(
-            color: AppColors.muted,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
-          prefixIcon: const Icon(
-            Icons.chat_bubble_rounded,
-            color: AppColors.orange,
-            size: 21,
-          ),
-          suffixIcon: Container(
-            width: 38,
-            height: 38,
-            margin: const EdgeInsets.all(7),
-            decoration: const BoxDecoration(
-              color: AppColors.ink,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.arrow_upward_rounded,
-              color: Colors.white,
-              size: 20,
-            ),
-          ),
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 18,
-            vertical: 17,
-          ),
-        ),
-      ),
     );
   }
 }
