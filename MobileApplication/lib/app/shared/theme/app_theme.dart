@@ -14,7 +14,7 @@ ThemeData buildAppTheme() {
       brightness: Brightness.light,
       surface: Colors.white,
     ),
-    fontFamily: null,
+    fontFamily: 'HarmonyOS Sans',
     textTheme: const TextTheme(
       headlineMedium: TextStyle(
           fontSize: 30, fontWeight: FontWeight.w800, color: AppColors.ink),

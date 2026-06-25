@@ -11,6 +11,7 @@ import 'pages/creative_workshop/creative_workshop_page.dart';
 import 'pages/set/models/robot_settings.dart';
 import 'pages/set/set_page.dart';
 import 'router/app_router.dart';
+import 'shared/theme/app_colors.dart';
 import 'shared/theme/app_theme.dart';
 import 'shared/widgets/floating_bottom_bar.dart';
 import 'shared/widgets/menu/app_menu_models.dart';
@@ -65,19 +66,16 @@ class _CompanionRobotAppState extends State<CompanionRobotApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: _currentTab == RobotTab.chat
+          ? AppColors.chatWarmBackground
+          : AppColors.pageBackground,
+      extendBody: true,
       body: SafeArea(
-        child: Stack(
-          children: [
-            _buildCurrentPage(),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: FloatingBottomBar(
-                currentTab: _currentTab,
-                onTabChange: (tab) => setState(() => _currentTab = tab),
-              ),
-            ),
-          ],
-        ),
+        child: _buildCurrentPage(),
+      ),
+      bottomNavigationBar: FloatingBottomBar(
+        currentTab: _currentTab,
+        onTabChange: (tab) => setState(() => _currentTab = tab),
       ),
     );
   }

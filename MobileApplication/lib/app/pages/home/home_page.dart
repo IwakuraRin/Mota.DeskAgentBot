@@ -41,17 +41,15 @@ class _RobotHomePageState extends State<RobotHomePage> {
 
         return LayoutBuilder(
           builder: (context, constraints) {
-            final topGap = (constraints.maxHeight * 0.18)
-                .clamp(96.0, 148.0)
-                .toDouble();
-            final faceHeight = (constraints.maxHeight * 0.22)
-                .clamp(160.0, 210.0)
-                .toDouble();
+            final topGap =
+                (constraints.maxHeight * 0.18).clamp(96.0, 148.0).toDouble();
+            final faceHeight =
+                (constraints.maxHeight * 0.22).clamp(160.0, 210.0).toDouble();
 
             return ColoredBox(
               color: AppColors.chatWarmBackground,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 0, 24, 96),
+                padding: const EdgeInsets.fromLTRB(24, 0, 24, 12),
                 child: Column(
                   children: [
                     SizedBox(height: topGap),
