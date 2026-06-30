@@ -13,6 +13,8 @@ import 'package:milo_ai/app/shared/theme/app_colors.dart';
 import 'package:milo_ai/app/shared/widgets/menu/app_menu_models.dart';
 import 'package:milo_ai/app/shared/widgets/menu/privacy_menu_panel.dart';
 import 'package:milo_ai/app/shared/widgets/menu/profile_menu_panel.dart';
+import 'package:milo_ai/app/shared/widgets/menu/user_agreement_panel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RobotSettingsPage extends StatelessWidget {
   const RobotSettingsPage({
@@ -68,13 +70,6 @@ class RobotSettingsPage extends StatelessWidget {
                 title: '体验设置',
                 children: [
                   SettingsSwitchRow(
-                    icon: Icons.vibration_rounded,
-                    title: '触感反馈',
-                    subtitle: '点击导航和关键控制时提供轻微震动',
-                    value: settings.hapticFeedback,
-                    onChanged: _setHapticFeedback,
-                  ),
-                  SettingsSwitchRow(
                     icon: Icons.auto_awesome_rounded,
                     title: '表情动画',
                     subtitle: '让机器人表情切换更柔和',
@@ -109,8 +104,24 @@ class RobotSettingsPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               SettingsSection(
-                title: '隐私与关于',
+                title: '支持与关于',
                 children: [
+                  SettingsRow(
+                    icon: Icons.bug_report_rounded,
+                    title: 'Bug 问题反馈',
+                    subtitle: '遇到问题时可直接发送邮件给开发者',
+                    accentColor: AppColors.orange,
+                    trailing: const Icon(Icons.open_in_new_rounded),
+                    onTap: () => _openBugFeedbackEmail(context),
+                  ),
+                  SettingsRow(
+                    icon: Icons.description_rounded,
+                    title: '用户协议',
+                    subtitle: '查看 Mota 的使用规则、功能边界和服务说明',
+                    accentColor: AppColors.aqua,
+                    trailing: const Icon(Icons.chevron_right_rounded),
+                    onTap: () => _showUserAgreementDialog(context),
+                  ),
                   SettingsRow(
                     icon: Icons.privacy_tip_rounded,
                     title: '隐私政策',
@@ -121,7 +132,7 @@ class RobotSettingsPage extends StatelessWidget {
                   ),
                   SettingsRow(
                     icon: Icons.info_outline_rounded,
-                    title: '关于 Milo-AI',
+                    title: '关于 Mota',
                     subtitle: '当前状态：${statusText(connectState)}，Flutter 移动端版本',
                     accentColor: AppColors.aqua,
                     trailing: const StatusPill(
@@ -175,10 +186,6 @@ class RobotSettingsPage extends StatelessWidget {
     onSettingsChanged(settings.copyWith(autoReconnect: value));
   }
 
-  void _setHapticFeedback(bool value) {
-    onSettingsChanged(settings.copyWith(hapticFeedback: value));
-  }
-
   void _setFaceAnimation(bool value) {
     onSettingsChanged(settings.copyWith(faceAnimation: value));
   }
@@ -202,14 +209,61 @@ class RobotSettingsPage extends StatelessWidget {
     );
   }
 
+  void _showUserAgreementDialog(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(34)),
+      ),
+      builder: (context) => const Padding(
+        padding: EdgeInsets.fromLTRB(22, 4, 22, 28),
+        child: UserAgreementPanel(),
+      ),
+    );
+  }
+
+  Future<void> _openBugFeedbackEmail(BuildContext context) async {
+    final emailUri = Uri(
+      scheme: 'mailto',
+      path: RobotSettingsContent.feedbackEmail,
+      queryParameters: const {
+        'subject': 'Mota Bug 问题反馈',
+        'body': '请描述你遇到的问题：\n\n发生页面：\n操作步骤：\n期望结果：\n实际结果：\n',
+      },
+    );
+
+    final opened = await launchUrl(
+      emailUri,
+      mode: LaunchMode.externalApplication,
+    );
+
+    if (opened || !context.mounted) {
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text(
+          '没有找到可用的邮箱应用：${RobotSettingsContent.feedbackEmail}',
+        ),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+    );
+  }
+
   void _showAboutDialog(BuildContext context) {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
-        title: const Text('关于 Milo-AI'),
+        title: const Text('关于 Mota'),
         content: const Text(
-          'Milo-AI 是一个陪伴机器人控制台。当前 Flutter 版本支持机器人主页、蓝牙扫描、状态面板、移动控制、表情切换、头像本地保存和隐私设置。',
+          'Mota 是一个陪伴机器人控制台。当前 Flutter 版本支持机器人主页、蓝牙扫描、状态面板、移动控制、表情切换、头像本地保存和隐私设置。',
           style: TextStyle(height: 1.5),
         ),
         actions: [
