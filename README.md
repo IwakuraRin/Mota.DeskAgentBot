@@ -32,6 +32,15 @@
   </tr>
 </table>
 
+## 快速预览
+
+<p align="center">
+  <img src="assets/quick-preview/preview-1.jpg" alt="Mota quick preview 1" width="22%" />
+  <img src="assets/quick-preview/preview-2.jpg" alt="Mota quick preview 2" width="22%" />
+  <img src="assets/quick-preview/preview-3.jpg" alt="Mota quick preview 3" width="22%" />
+  <img src="assets/quick-preview/preview-demo.gif" alt="Mota quick preview demo" width="22%" />
+</p>
+
 ---
 
 ## Quick Project Structure
